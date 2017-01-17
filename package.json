@@ -1,0 +1,21 @@
+{
+  "name": "hubot-mercadolibre_cl",
+  "version": "0.0.1",
+  "description": "Get available products from MercadoLibre.cl",
+  "main": "mercadolibre.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanbrujo/hubot-mercadolibre_cl.git"
+  },
+  "keywords": [
+    "hubot",
+    "MercadoLibre",
+    "Chile"
+  ],
+  "author": "@juanbrujo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juanbrujo/hubot-mercadolibre_cl/issues"
+  },
+  "homepage": "https://github.com/juanbrujo/hubot-mercadolibre_cl#readme"
+}
