@@ -12,33 +12,31 @@
 
 var cheerio = require('cheerio');
 
-module.exports = function(robot) {
-  robot.respond(/(mercadolibre|meli|ml) (.*)/i, function(msg) {
-    msg.send(':mercado: buscando...');
+module.exports = function (robot) {
+  robot.respond(/(mercadolibre|meli|ml) (.*)/i, function (msg) {
+    msg.send(':mag: buscando...');
 
     var search = msg.match[2];
     var mainUrl = 'http://listado.mercadolibre.cl/';
-    var url = mainUrl + search.replace(' ', '-');
+    var url = mainUrl + search.replace(/\s+/g, '-');
 
-    msg.robot.http(url).get()(function(err, res, body){
+    msg.robot.http(url).get()(function (err, res, body) {
       var $ = cheerio.load(body);
       var resultados = [];
-      var errorText = $('main .nav-main-content .ml-main .ch-box.zrp-box .typo');
+      var errorText = $('main .nav-main-content .ml-main .zrp-box .header__title');
 
-      if( errorText.length ) {
+      if ( errorText.length ) {
 
         var notFound = errorText.text().trim();
-        msg.send('No hay publicaciones que coincidan con tu búsqueda.');
+        msg.send('No hay publicaciones que coincidan con tu búsqueda. Intenta con otro producto.');
 
       } else {
 
-        $('#searchResults .results-item').each(function(){
-
+        $('#searchResults .results-item').each(function () {
           var title = $(this).find('.list-view-item-title a').text();
           var link = $(this).find('.list-view-item-title a').attr('href');
           var price = $(this).find('.price-info .price-info-cost .ch-price').text();
           resultados.push( '<' + link + '|' + title + ': ' + price + '>' );
-
        });
 
         if (resultados.length > 0) {
@@ -52,7 +50,7 @@ module.exports = function(robot) {
             text += conteo + ': ' + resultados[i] + '\n';
           }
 
-          if(resultados.length > limiteResultados) {
+          if (resultados.length > limiteResultados) {
             text += 'Otros resultados en: *<'+ url + '|MercadoLibre Chile>*\n';
           }
 
@@ -65,7 +63,6 @@ module.exports = function(robot) {
 
         }
       }
-
 
     });
   });
