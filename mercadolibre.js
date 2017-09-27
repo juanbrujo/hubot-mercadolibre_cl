@@ -17,7 +17,7 @@ module.exports = function (robot) {
     msg.send(':mag: buscando...');
 
     var search = msg.match[2];
-    var mainUrl = 'http://listado.mercadolibre.cl/';
+    var mainUrl = 'https://listado.mercadolibre.cl/';
     var url = mainUrl + search.replace(/\s+/g, '-');
 
     msg.robot.http(url).get()(function (err, res, body) {
